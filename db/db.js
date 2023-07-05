@@ -7,6 +7,6 @@ const host = "localhost";
 
 export const sequelize = new Sequelize(dbName, dbUsername, dbPass, {
   dialect: "postgres",
-  port: "5433",
+  port: "5432",
   host: host,
 });

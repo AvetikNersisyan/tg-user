@@ -1,6 +1,6 @@
 import { Sequelize } from "sequelize";
 
-const dbName = "tg-users";
+const dbName = "tg_users";
 const dbUsername = "postgres";
 const dbPass = "Asala63158400";
 const host = "localhost";

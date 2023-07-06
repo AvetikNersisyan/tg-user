@@ -21,5 +21,11 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Build application
-        run: npm start &
+      - name: Run application
+        run: |
+          export DB_NAME=${{ secrets.DB_NAME }}
+          export DB_USERNAME=${{ secrets.DB_USERNAME }}
+          export DB_PASS=${{ secrets.DB_PASS }}
+          export DB_HOST=${{ secrets.DB_HOST }}
+          export DB_PORT=${{ secrets.DB_PORT }}
+          npm start

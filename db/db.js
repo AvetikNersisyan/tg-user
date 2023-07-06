@@ -9,7 +9,6 @@ const dbPass = process.env.DB_PASS;
 const host = process.env.DB_HOST;
 const port = process.env.DB_PORT;
 
-console.log('hello')
 export const sequelize = new Sequelize(dbName, dbUsername, dbPass, {
   dialect: "postgres",
   port: port,

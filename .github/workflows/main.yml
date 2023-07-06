@@ -21,5 +21,17 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Create environment file
+        run: |
+          echo "DB_NAME=${{ secrets.DB_NAME }}" > .env
+          echo "DB_USERNAME=${{ secrets.DB_USERNAME }}" >> .env
+          echo "DB_PASS=${{ secrets.DB_PASS }}" >> .env
+          echo "DB_HOST=${{ secrets.DB_HOST }}" >> .env
+          echo "DB_PORT=${{ secrets.DB_PORT }}" >> .env
+
       - name: Build application
-        run: npm start
+        run: npm run build
+
+      - name: Run application
+        run: |
+          npm start

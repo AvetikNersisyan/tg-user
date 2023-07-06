@@ -15,6 +15,7 @@ const save = async (req, res, next) => {
     if (source_chat_id) {
       [chat] = await sourceChat.findOrCreate({
         where: { chat_id: source_chat_id },
+        defaults: { chat_id: source_chat_id },
       });
 
       if (!chat) {
@@ -36,16 +37,18 @@ const save = async (req, res, next) => {
     //   userParams.source_chats = chat;
     // }
 
-    const candidate = await users.findOne({
+    let candidate = await users.findOne({
       where: { tg_id },
     });
+
+    console.log(candidate, "candidate");
 
     if (candidate) {
       await candidate.update({
         ...clearObject(userParams),
       });
     } else {
-      await candidate.create({
+      candidate = await users.create({
         ...clearObject(userParams),
       });
     }

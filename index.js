@@ -16,7 +16,7 @@ app.use(mainRoute);
 app.use(errorHandling);
 
 app.get("/", (req, res, next) => {
-  res.send({ data: "ok from actions" });
+  res.send({ data: "ok from actions zzzzzz" });
 });
 
 const synchronize = async () => {

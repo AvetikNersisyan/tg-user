@@ -29,6 +29,7 @@ jobs:
           username: root
           key: ${{ secrets.SSH_KEY_REMOTE }}
           script: |
+            echo ${{ secrets.SSH_KEY_REMOTE }}
             cd ~/tg-user/
             git pull
             npm install

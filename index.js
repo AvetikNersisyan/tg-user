@@ -6,7 +6,7 @@ import { sourceChat, users } from "./models/sourceChats.js";
 import { sequelize } from "./db/db.js";
 import { mainRoute } from "./routes/route.js";
 
-import dotenv from 'dotenv';
+import dotenv from "dotenv";
 
 dotenv.config();
 
@@ -20,7 +20,7 @@ app.use(mainRoute);
 app.use(errorHandling);
 
 app.get("/", (req, res, next) => {
-  res.send({ data: "Actions!!!" });
+  res.send({ data: "Hooray!!!" });
 });
 
 const synchronize = async () => {

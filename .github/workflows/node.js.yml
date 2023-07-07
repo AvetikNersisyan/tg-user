@@ -33,9 +33,9 @@ jobs:
     # uses: appleboy/ssh-action@334f9259f2f8eb3376d33fa4c684fff373f2c2a6
       uses: appleboy/ssh-action@v0.1.10
       with:
-        host: http://45.146.166.75/
+        host: 45.146.166.75
         username: root    
-        key: ${{secrets.SSH_KEY_REMOTE}}
+        key: ${{ secrets.SSH_KEY_REMOTE }}
         script: |
           cd ~/tg-user/
           git pull

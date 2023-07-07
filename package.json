@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon ./index.js"
+    "start": "nodemon ./index.js",
+    "start:prod": "pm2 start ./index.js"
   },
   "keywords": [],
   "author": "AvetikNersisyan",
@@ -17,6 +18,7 @@
     "express": "^4.18.2",
     "nodemon": "^2.0.22",
     "pg": "^8.11.1",
+    "pm2": "^5.3.0",
     "postgres": "^3.3.5",
     "sequelize": "^6.32.1"
   }

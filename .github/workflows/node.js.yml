@@ -35,7 +35,7 @@ jobs:
       with:
         host: http://45.146.166.75/
         username: root    
-        key: 
+        key: ${{secrets.SSH_KEY_REMOTE}}
         script: |
           cd ~/tg-user/
           git pull

@@ -22,9 +22,6 @@ jobs:
       - run: npm ci
       - run: npm run build --if-present
         
-      - name: Intall SSH
-        run: sudo apt-get update && sudo apt-get install -y openssh-client
-        
       - name: SSH Remote Commands
         uses: appleboy/ssh-action@master
         with:

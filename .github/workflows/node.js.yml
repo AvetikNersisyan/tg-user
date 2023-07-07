@@ -23,7 +23,7 @@ jobs:
       - run: npm run build --if-present
 
       - name: SSH Remote Commands
-        uses: appleboy/ssh-action@v0.1.10
+        uses: appleboy/ssh-action@v0.1.2
         with:
           host: 45.146.166.75
           username: root

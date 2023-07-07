@@ -20,7 +20,7 @@ app.use(mainRoute);
 app.use(errorHandling);
 
 app.get("/", (req, res, next) => {
-  res.send({ data: "Hooray!!!" });
+  res.send({ data: "Հելլո!!!" });
 });
 
 const synchronize = async () => {

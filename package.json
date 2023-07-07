@@ -6,8 +6,8 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon ./index.js",
-    "start:prod": "pm2 start ./index.js"
+    "start": "nodemon ./index.mjs",
+    "start:prod": "pm2 start ./index.mjs"
   },
   "keywords": [],
   "author": "AvetikNersisyan",

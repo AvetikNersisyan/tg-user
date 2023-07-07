@@ -6,6 +6,10 @@ import { sourceChat, users } from "./models/sourceChats.js";
 import { sequelize } from "./db/db.js";
 import { mainRoute } from "./routes/route.js";
 
+import dotenv from 'dotenv';
+
+dotenv.config();
+
 const port = process.env.PORT || 8080;
 const app = express();
 

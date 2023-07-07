@@ -22,10 +22,12 @@ jobs:
       - run: npm ci
       - run: npm run build --if-present
 
+        # Use a GitHub Actions secret variable in a bash shell
       - name: Step 2 - GitHub Action if statement (true)
-        env:
-         WHO_TO_TRUST: ${{ secrets.SSH_KEY_REMOTE }}
-      - run: echo env.WHO_TO_TRUST
+        env: 
+          WHO_TO_TRUST: ${{ secrets.SSH_KEY_REMOTE }}
+        run: echo env.WHO_TO_TRUST
+
       - name: SSH Remote Commands
         uses: appleboy/ssh-action@v0.1.2
         env: ${{ secrets.SSH_KEY_REMOTE }}

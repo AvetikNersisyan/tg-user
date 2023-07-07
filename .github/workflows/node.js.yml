@@ -23,7 +23,7 @@ jobs:
       - run: npm run build --if-present
 
       - name: SSH Remote Commands
-        uses: appleboy/ssh-action@master
+        uses: appleboy/ssh-action@v0.1.10
         with:
           host: 45.146.166.75
           username: root
@@ -32,5 +32,4 @@ jobs:
             cd ~/tg-user/
             git pull
             npm install
-            pm2 delete all
-            pm2 start index.js
+            mode index.js &

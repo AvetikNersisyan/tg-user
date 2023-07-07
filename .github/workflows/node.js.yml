@@ -2,9 +2,9 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
 
 jobs:
   build:
@@ -21,14 +21,12 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - run: npm ci
       - run: npm run build --if-present
-        
-        
+
       - name: SSH Remote Commands
         uses: appleboy/ssh-action@master
         with:
           host: 45.146.166.75
           username: root
-          run: echo 'hello '  ${{ secrets.SSH_KEY_REMOTE }}
           key: ${{ secrets.SSH_KEY_REMOTE }}
           script: |
             cd ~/tg-user/

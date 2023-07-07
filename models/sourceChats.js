@@ -41,6 +41,5 @@ export const users = sequelize.define("users", {
   },
 });
 
-console.log(users, "users");
 users.belongsToMany(sourceChat, { through: "user_chats" });
 sourceChat.belongsToMany(users, { through: "user_chats" });

@@ -23,11 +23,12 @@ jobs:
       - run: npm run build --if-present
 
       - name: SSH Remote Commands
-        uses: appleboy/ssh-action@master
+        uses: shimataro/ssh-key-action@v2
         with:
           host: 45.146.166.75
           username: root
-          key: ${{ secrets.SSH_PRIVATE_KEY }};
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          known_hosts: 'just-a-placeholder-so-we-dont-get-errors'
           script: |
             cd ~/tg-user/
             git pull

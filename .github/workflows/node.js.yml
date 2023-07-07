@@ -33,5 +33,4 @@ jobs:
             git pull
             npm install
             npm install -g pm2
-            pm2 delete all
-            npm  run start:prod
+            pm2 restart default

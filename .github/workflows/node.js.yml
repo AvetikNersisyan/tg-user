@@ -32,4 +32,5 @@ jobs:
             cd ~/tg-user/
             git pull
             npm install
-            mode index.js &
+            npx pm2 delete all
+            npx pm2 start index.js

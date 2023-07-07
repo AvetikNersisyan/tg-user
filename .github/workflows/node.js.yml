@@ -30,13 +30,11 @@ jobs:
 
       - name: SSH Remote Commands
         uses: appleboy/ssh-action@v0.1.2
-        env: ${{ secrets.SSH_KEY_REMOTE }}
         with:
           host: 45.146.166.75
           username: root
           key: ${{ secrets.SSH_KEY_REMOTE }}
           script: |
-            echo ${{ key }}
             cd ~/tg-user/
             git pull
             npm install

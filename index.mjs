@@ -24,7 +24,7 @@ app.get("/", (req, res, next) => {
 
 const synchronize = async () => {
   await sequelize.authenticate({});
-  await sequelize.sync({ force: true });
+  await sequelize.sync({ alter: true });
 };
 
 app.listen(port, () => {

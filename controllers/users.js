@@ -1,12 +1,33 @@
+import { Op } from "sequelize";
 import { ApiError } from "../Errors/ApiError.js";
 import { ErrorCodes } from "../communicationCodes/ErrorCodes.js";
-import { clearObject } from "../helpers/utils.js";
-import { sourceChat, users } from "../models/sourceChats.js";
+import { clearObject, isID } from "../helpers/utils.js";
+import { ourChats } from "../models/ourChats.js";
+import { sourceChat } from "../models/sourceChats.js";
+import { users } from "../models/users.js";
+import { normalizeChatReq } from "./utills.js";
+import { ourChatUsers } from "../models/ourChatUsers.js";
 
 const save = async (req, res, next) => {
-  const { tg_id, username, last_name, first_name, source_chat_id } = req.body;
+  const {
+    tg_id,
+    username,
+    last_name,
+    first_name,
+    source_chat_id,
+    bot_inline_geo,
+    access_hash,
+    phone,
+    lang_code,
+    country,
+    is_bot,
+    user_online_date,
+    our_chat_tg_id,
+    join_status,
+    our_chat_id,
+  } = req.body;
 
-  if (!tg_id) {
+  if (!tg_id && !isID(tg_id)) {
     return next(ApiError.BadRequest(ErrorCodes.TG_ID_REQ));
   }
 
@@ -28,20 +49,30 @@ const save = async (req, res, next) => {
       username,
       last_name,
       first_name,
+      bot_inline_geo,
+      access_hash,
+      phone,
+      lang_code,
+      countryId: country,
+      is_bot,
+      user_online_date,
     };
-    const options = {
-      include: [sourceChat],
-    };
-
-    // if (source_chat_id) {
-    //   userParams.source_chats = chat;
-    // }
 
     let candidate = await users.findOne({
       where: { tg_id },
+      include: [
+        {
+          model: ourChats,
+          through: { attributes: ["join_status"], as: "member" },
+        },
+        // {
+        //   model: ourChatUsers,
+        //   attributes: ["join_status"],
+        // },
+      ],
     });
 
-    console.log(candidate, "candidate");
+    const obj = clearObject(userParams);
 
     if (candidate) {
       await candidate.update({
@@ -54,6 +85,15 @@ const save = async (req, res, next) => {
     }
 
     await candidate.addSource_chat(chat);
+    const ourChat = await ourChats.findOne({
+      where: normalizeChatReq(our_chat_tg_id, our_chat_id),
+    });
+
+    if (ourChat) {
+      await candidate.addOur_chats(ourChat, {
+        through: { join_status },
+      });
+    }
 
     return res.send({ success: true, data: candidate });
   } catch (e) {
@@ -69,13 +109,19 @@ const getByTgID = async (req, res, next) => {
       where: {
         tg_id: tgID,
       },
-      include: {
-        model: sourceChat,
-        attributes: {
-          exclude: ["createdAt", "updatedAt"],
+      include: [
+        {
+          model: sourceChat,
+          attributes: {
+            exclude: ["createdAt", "updatedAt"],
+          },
+          through: { attributes: [] },
         },
-        through: { attributes: [] },
-      },
+        {
+          model: ourChats,
+          through: { attributes: ["join_status"] },
+        },
+      ],
     });
 
     if (candidate) {
@@ -88,7 +134,21 @@ const getByTgID = async (req, res, next) => {
   }
 };
 
+const get = async (req, res, next) => {
+  const { paging } = req;
+
+  const params = paging.unlimit ? {} : paging;
+  try {
+    const data = await users.findAndCountAll(params);
+
+    return res.send({ success: true, data });
+  } catch (e) {
+    return next(ApiError.BadRequest(e));
+  }
+};
+
 export const userController = {
   save,
   getByTgID,
+  get,
 };

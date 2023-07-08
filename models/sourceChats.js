@@ -1,5 +1,6 @@
 import { sequelize } from "../db/db.js";
 import { DataTypes } from "sequelize";
+import { countries } from "./countries.js";
 // import { users } from "./users.js";
 
 export const sourceChat = sequelize.define("source_chats", {
@@ -15,31 +16,34 @@ export const sourceChat = sequelize.define("source_chats", {
   },
 });
 
-export const users = sequelize.define("users", {
-  id: {
-    type: DataTypes.INTEGER,
-    autoIncrement: true,
-    allowNull: false,
-    primaryKey: true,
-  },
+// export const users = sequelize.define("users", {
+//   id: {
+//     type: DataTypes.INTEGER,
+//     autoIncrement: true,
+//     allowNull: false,
+//     primaryKey: true,
+//   },
 
-  tg_id: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    unique: true,
-  },
+//   tg_id: {
+//     type: DataTypes.INTEGER,
+//     allowNull: false,
+//     unique: true,
+//   },
 
-  first_name: {
-    type: DataTypes.TEXT,
-  },
-  last_name: {
-    type: DataTypes.TEXT,
-  },
+//   first_name: {
+//     type: DataTypes.TEXT,
+//   },
+//   last_name: {
+//     type: DataTypes.TEXT,
+//   },
 
-  username: {
-    type: DataTypes.TEXT,
-  },
-});
+//   username: {
+//     type: DataTypes.TEXT,
+//   },
+// });
 
-users.belongsToMany(sourceChat, { through: "user_chats" });
-sourceChat.belongsToMany(users, { through: "user_chats" });
+// users.belongsToMany(sourceChat, { through: "user_chats" });
+// sourceChat.belongsToMany(users, { through: "user_chats" });
+
+// users.belongsTo(countries);
+// countries.hasMany(users);

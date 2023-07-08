@@ -1,8 +1,7 @@
 import express from "express";
 import bodyParser from "body-parser";
 import { errorHandling } from "./middlewares/error/errorHandling.js";
-// import { users } from "./models/users.js";
-import { sourceChat, users } from "./models/sourceChats.js";
+import { models } from "./models/models.js";
 import { sequelize } from "./db/db.js";
 import { mainRoute } from "./routes/route.js";
 
@@ -25,7 +24,7 @@ app.get("/", (req, res, next) => {
 
 const synchronize = async () => {
   await sequelize.authenticate({});
-  await sequelize.sync();
+  await sequelize.sync({ alter: true });
 };
 
 app.listen(port, () => {

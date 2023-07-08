@@ -19,7 +19,7 @@ app.use(mainRoute);
 app.use(errorHandling);
 
 app.get("/", (req, res, next) => {
-  res.send({ success: true, data: "ok" });
+  res.send({ success: true, data: "received!" });
 });
 
 const synchronize = async () => {

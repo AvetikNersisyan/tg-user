@@ -12,6 +12,9 @@ const countries = sequelize.define(
       type: DataTypes.STRING,
       unique: true,
     },
+    phone_code: {
+      type: DataTypes.ARRAY(DataTypes.STRING),
+    },
   },
   {
     timestamps: false,

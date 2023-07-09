@@ -4,10 +4,13 @@ import { countries } from "./countries.js";
 // import { users } from "./users.js";
 
 export const sourceChat = sequelize.define("source_chats", {
-  chat_id: {
+  tg_chat_id: {
     type: DataTypes.INTEGER,
     allowNull: false,
     unique: true,
+  },
+  chat_name: {
+    type: DataTypes.STRING,
   },
   id: {
     type: DataTypes.INTEGER,

@@ -35,8 +35,8 @@ const save = async (req, res, next) => {
     let chat;
     if (source_chat_id) {
       [chat] = await sourceChat.findOrCreate({
-        where: { chat_id: source_chat_id },
-        defaults: { chat_id: source_chat_id },
+        where: { tg_chat_id: source_chat_id },
+        defaults: { tg_chat_id: source_chat_id },
       });
 
       if (!chat) {
@@ -139,7 +139,23 @@ const get = async (req, res, next) => {
 
   const params = paging.unlimit ? {} : paging;
   try {
-    const data = await users.findAndCountAll(params);
+    const data = await users.findAndCountAll({
+      ...params,
+      distinct: "users.id",
+      include: [
+        {
+          model: sourceChat,
+          attributes: {
+            exclude: ["createdAt", "updatedAt"],
+          },
+          through: { attributes: [] },
+        },
+        {
+          model: ourChats,
+          through: { attributes: ["join_status"] },
+        },
+      ],
+    });
 
     return res.send({ success: true, data });
   } catch (e) {

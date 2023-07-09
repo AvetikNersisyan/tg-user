@@ -5,6 +5,7 @@ import { models } from "./models/models.js";
 import { sequelize } from "./db/db.js";
 import { mainRoute } from "./routes/route.js";
 
+import { sourceChat } from "./models/sourceChats.js";
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -24,7 +25,9 @@ app.get("/", (req, res, next) => {
 
 const synchronize = async () => {
   await sequelize.authenticate({});
-  await sequelize.sync({ alter: true });
+  await sequelize.sync({ force: true });
+
+  // await sourceChat.sync({ force: true });
 };
 
 app.listen(port, () => {

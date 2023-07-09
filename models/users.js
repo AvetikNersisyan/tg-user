@@ -19,7 +19,7 @@ export const users = sequelize.define(
     },
 
     tg_id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.BIGINT,
       allowNull: false,
       unique: true,
     },

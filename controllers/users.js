@@ -65,14 +65,8 @@ const save = async (req, res, next) => {
           model: ourChats,
           through: { attributes: ["join_status"], as: "member" },
         },
-        // {
-        //   model: ourChatUsers,
-        //   attributes: ["join_status"],
-        // },
       ],
     });
-
-    const obj = clearObject(userParams);
 
     if (candidate) {
       await candidate.update({

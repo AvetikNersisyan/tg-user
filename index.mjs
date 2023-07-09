@@ -20,12 +20,12 @@ app.use(mainRoute);
 app.use(errorHandling);
 
 app.get("/", (req, res, next) => {
-  res.send({ success: true, data: "Test!" });
+  res.send({ success: true, data: "Received!" });
 });
 
 const synchronize = async () => {
   await sequelize.authenticate({});
-  await sequelize.sync({ force: true });
+  await sequelize.sync({ alter: true });
 
   // await sourceChat.sync({ force: true });
 };

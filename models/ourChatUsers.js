@@ -14,11 +14,11 @@ export const ourChatUsers = sequelize.define(
       allowNull: false,
     },
     create_unix: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.BIGINT,
     },
 
     update_unix: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.BIGINT,
     },
   },
   {

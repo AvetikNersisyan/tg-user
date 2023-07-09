@@ -5,7 +5,7 @@ import { countries } from "./countries.js";
 
 export const sourceChat = sequelize.define("source_chats", {
   tg_chat_id: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.BIGINT,
     allowNull: false,
     unique: true,
   },

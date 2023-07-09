@@ -5,7 +5,7 @@ export const ourChats = sequelize.define(
   "our_chats",
   {
     tg_chat_id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.BIGINT,
       allowNull: false,
       unique: true,
     },

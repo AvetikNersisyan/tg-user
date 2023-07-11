@@ -1,10 +1,10 @@
 import express from "express";
 import bodyParser from "body-parser";
 import { errorHandling } from "./middlewares/error/errorHandling.js";
+import cors from "cors";
 import { models } from "./models/models.js";
 import { sequelize } from "./db/db.js";
 import { mainRoute } from "./routes/route.js";
-import cors from "cors";
 
 import { sourceChat } from "./models/sourceChats.js";
 import dotenv from "dotenv";
@@ -14,12 +14,13 @@ dotenv.config();
 const port = process.env.PORT || 8080;
 const app = express();
 
-app.use(bodyParser.json());
 app.use(
   cors({
     origin: "*",
   })
 );
+
+app.use(bodyParser.json());
 
 app.use(mainRoute);
 

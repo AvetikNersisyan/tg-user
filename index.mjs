@@ -14,10 +14,10 @@ dotenv.config();
 const port = process.env.PORT || 8080;
 const app = express();
 
-app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000"); // Replace with your app's URL
-  next();
-});
+// app.use((req, res, next) => {
+//   res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000"); // Replace with your app's URL
+//   next();
+// });
 
 app.use(
   cors({

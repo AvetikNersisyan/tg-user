@@ -32,7 +32,7 @@ app.use(mainRoute);
 app.use(errorHandling);
 
 app.get("/", (req, res, next) => {
-  res.send({ success: true, data: "Received!" });
+  res.send({ success: true, data: "Origin!" });
 });
 
 const synchronize = async () => {

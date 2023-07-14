@@ -168,6 +168,7 @@ const bulkSave = async (req, res, next) => {
     return next(ApiError.BadRequest(ErrorCodes.BULK_IS_NOT_ARRAY));
   }
 
+  console.log(bulk, "bulk");
   for (let i = 0; i < bulk.length; i++) {
     const user = bulk[i];
 
@@ -271,3 +272,28 @@ export const userController = {
   getByTgID,
   get,
 };
+
+// const a = {
+//   bulk: [
+//     {
+//       tg_id: 1482457120,
+//       source_chat_id: 1409551458,
+//       first_name: "Angel🦋",
+//       username: "nsswq",
+//       bot_inline_geo: False,
+//       access_hash: 9076929737233669579,
+//       is_bot: False,
+//       user_online_date: "UserStatusRecently()",
+//     },
+//     {
+//       tg_id: 6023488891,
+//       source_chat_id: 1409551458,
+//       first_name: "Anna",
+//       username: "annbnny",
+//       bot_inline_geo: False,
+//       access_hash: -4391907673517207241,
+//       is_bot: False,
+//       user_online_date: "UserStatusRecently()",
+//     },
+//   ],
+// };

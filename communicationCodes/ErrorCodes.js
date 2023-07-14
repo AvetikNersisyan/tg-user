@@ -6,4 +6,5 @@ export const ErrorCodes = {
   INVALID_COUNTRY_ID: "Country id is invalid",
   NAME_ID_REQ: "Chat name and telegram id is required.",
   NO_DATA_PROVIDED: "Send data.",
+  BULK_IS_NOT_ARRAY: "bulk should be an array!",
 };

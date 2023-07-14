@@ -161,8 +161,111 @@ const get = async (req, res, next) => {
   }
 };
 
+const bulkSave = async (req, res, next) => {
+  const { bulk } = req.body;
+
+  if (!Array.isArray(bulk)) {
+    return next(ApiError.BadRequest(ErrorCodes.BULK_IS_NOT_ARRAY));
+  }
+
+  for (let i = 0; i < bulk.length; i++) {
+    const user = bulk[i];
+    const {
+      tg_id,
+      username,
+      last_name,
+      first_name,
+      source_chat_id,
+      bot_inline_geo,
+      access_hash,
+      phone,
+      lang_code,
+      country,
+      is_bot,
+      user_online_date,
+      our_chat_tg_id,
+      join_status,
+      our_chat_id,
+    } = user;
+
+    if (!tg_id && !isID(tg_id)) {
+      return next(ApiError.BadRequest(ErrorCodes.TG_ID_REQ));
+    }
+
+    try {
+      let chat;
+      if (source_chat_id) {
+        [chat] = await sourceChat.findOrCreate({
+          where: { tg_chat_id: source_chat_id },
+          defaults: { tg_chat_id: source_chat_id },
+        });
+
+        if (!chat) {
+          return next(ApiError.BadRequest(ErrorCodes.INVALID_CHAT_ID));
+        }
+      }
+
+      const onlineDate = normalizeOnlineDate(user_online_date);
+
+      // return res.send({ onlineDate });
+
+      const userParams = {
+        tg_id,
+        username,
+        last_name,
+        first_name,
+        bot_inline_geo,
+        access_hash,
+        phone,
+        lang_code,
+        countryId: country,
+        is_bot,
+        user_online_date: onlineDate,
+      };
+
+      let candidate = await users.findOne({
+        where: { tg_id },
+        include: [
+          {
+            model: ourChats,
+            through: { attributes: ["join_status"], as: "member" },
+          },
+        ],
+      });
+
+      if (candidate) {
+        await candidate.update({
+          ...clearObject(userParams),
+        });
+      } else {
+        candidate = await users.create({
+          ...clearObject(userParams),
+        });
+      }
+
+      await candidate.addSource_chat(chat);
+      const ourChat = await ourChats.findOne({
+        where: normalizeChatReq(our_chat_tg_id, our_chat_id),
+      });
+
+      if (ourChat) {
+        await candidate.addOur_chats(ourChat, {
+          through: { join_status },
+        });
+      }
+
+      // return res.send({ success: true, data: candidate });
+    } catch (e) {
+      return next(ApiError.BadRequest([e.errors, e.message]));
+    }
+  }
+
+  return res.send({ success: true });
+};
+
 export const userController = {
   save,
+  bulkSave,
   getByTgID,
   get,
 };

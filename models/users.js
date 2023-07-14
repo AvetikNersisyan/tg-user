@@ -50,7 +50,7 @@ export const users = sequelize.define(
       type: DataTypes.BOOLEAN,
     },
     user_online_date: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.BIGINT,
     },
     createdAt: {
       type: DataTypes.INTEGER,

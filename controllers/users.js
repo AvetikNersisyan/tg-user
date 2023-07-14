@@ -5,7 +5,7 @@ import { clearObject, isID } from "../helpers/utils.js";
 import { ourChats } from "../models/ourChats.js";
 import { sourceChat } from "../models/sourceChats.js";
 import { users } from "../models/users.js";
-import { normalizeChatReq } from "./utills.js";
+import { normalizeChatReq, normalizeOnlineDate } from "./utills.js";
 import { ourChatUsers } from "../models/ourChatUsers.js";
 
 const save = async (req, res, next) => {
@@ -44,6 +44,10 @@ const save = async (req, res, next) => {
       }
     }
 
+    const onlineDate = normalizeOnlineDate(user_online_date);
+
+    // return res.send({ onlineDate });
+
     const userParams = {
       tg_id,
       username,
@@ -55,7 +59,7 @@ const save = async (req, res, next) => {
       lang_code,
       countryId: country,
       is_bot,
-      user_online_date,
+      user_online_date: onlineDate,
     };
 
     let candidate = await users.findOne({

@@ -170,6 +170,8 @@ const bulkSave = async (req, res, next) => {
 
   for (let i = 0; i < bulk.length; i++) {
     const user = bulk[i];
+
+    console.log(user, "user");
     const {
       tg_id,
       username,

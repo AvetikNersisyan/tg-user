@@ -21,12 +21,9 @@ export const validatePaging = (req, res, next) => {
 
   const paging = {};
 
-  if (limit && isID(limit)) {
+  if (limit && isID(limit) && page && isID(page)) {
     paging.limit = limit;
-  }
-
-  if (page && isID(page)) {
-    paging.page = page;
+    paging.offset = page * limit;
   }
 
   if (!isUndefined(unlimit)) {

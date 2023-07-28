@@ -19,11 +19,13 @@ export const validateBody = (req, res, next) => {
 export const validatePaging = (req, res, next) => {
   const { limit, page, unlimit } = req.query;
 
-  const paging = {};
+  const paging = {
+    order:[ ['id', 'ASC']]
+  };
 
   if (limit && isID(limit) && page && isID(page)) {
-    paging.limit = limit;
-    paging.offset = page * limit;
+    paging.limit = Number(limit);
+    paging.offset = Number(page * limit);
   }
 
   if (!isUndefined(unlimit)) {

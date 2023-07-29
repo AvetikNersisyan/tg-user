@@ -11,7 +11,7 @@ export const normalizeChatReq = (chatTgID, chatID) => {
     ourChatFilter.id = chatID;
   }
 
-  return ourChatFilter;
+  return !!Object.keys(ourChatFilter).length ? ourChatFilter : null;
 };
 
 function isValidDate(d) {

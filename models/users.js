@@ -55,14 +55,7 @@ export const users = sequelize.define(
     createdAt: {
       type: DataTypes.INTEGER,
     },
-    joined_our_chat: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: false
-    },
-    left_our_chat: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: false
-    },
+
     update_unix: {
       type: DataTypes.INTEGER,
     },

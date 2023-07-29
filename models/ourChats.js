@@ -18,3 +18,5 @@ export const ourChats = sequelize.define(
     timestamps: false,
   }
 );
+
+

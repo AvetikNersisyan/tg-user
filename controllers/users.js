@@ -32,8 +32,6 @@ const save = async (req, res, next) => {
   } = req.body;
 
   if (!tg_id && !isID(tg_id)) {
-    console.log('tg_id : ', tg_id);
-
     return next(ApiError.BadRequest(ErrorCodes.TG_ID_REQ));
   }
 
@@ -94,16 +92,21 @@ const save = async (req, res, next) => {
     await candidate.addSource_chat(chat);
     const normalizedChatReq = normalizeChatReq(our_chat_tg_id, our_chat_id);
 
-    const ourChat = normalizedChatReq && await ourChats.findOne({
-      where: normalizeChatReq(our_chat_tg_id, our_chat_id),
+    let ourChat = normalizedChatReq && await ourChats.findOne({
+      where: normalizedChatReq,
     });
+
+    if (!ourChat && normalizedChatReq) {
+      ourChat = await ourChats.create(normalizedChatReq)
+    }
+
 
     if (ourChat) {
       await candidate.addOur_chats(ourChat, {
         through: { join_status },
       });
     } else if (normalizedChatReq)  {
-      return  next(ApiError.BadRequest(ErrorCodes.INVALID_OUR_CHAT_ID))
+      // return  next(ApiError.BadRequest(ErrorCodes.INVALID_OUR_CHAT_ID))
     }
 
     return res.send({ success: true, data: candidate });

@@ -11,6 +11,7 @@ export const ourChats = sequelize.define(
     },
     chat_name: {
       type: DataTypes.STRING,
+      defaultValue: 'Our Chat Default value',
       allowNull: false,
     },
   },
